@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
-import './Login.css';
+import './Login.css'; // Optional: for custom CSS
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -51,38 +51,49 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="ion-padding centered-content">
-        <div className="login-container">
-          <h2>Login</h2>
-          {error && <IonText color="danger">{error}</IonText>}
-
-          <IonItem>
-            <IonLabel position="floating">Email</IonLabel>
-            <IonInput value={email} onIonChange={e => setEmail(e.detail.value ?? '')} />
-          </IonItem>
-
-          <IonItem>
-            <IonLabel position="floating">Password</IonLabel>
-            <IonInput type="password" value={password} onIonChange={e => setPassword(e.detail.value ?? '')} />
-          </IonItem>
-
-          <div className="checkbox-container">
-            <IonCheckbox
-              checked={rememberMe}
-              onIonChange={e => setRememberMe(e.detail.checked)}
-            />
-            <IonLabel>Remember Me</IonLabel>
+        <div className="auth-card login-container">
+          <div className="brand">
+            <h1 className="brand-title">My Spot</h1>
           </div>
 
-          <IonButton expand="block" onClick={handleLogin}>Login</IonButton>
-          <IonButton fill="clear" expand="block" onClick={handleForgotPassword}>Forgot Password?</IonButton>
+          {error && <IonText color="danger" className="error-text">{error}</IonText>}
 
-          <IonText
-            color="primary"
-            className="ion-text-link"
-            onClick={() => window.location.href='/signup'}
-          >
-            Don’t have an account yet? Sign Up
-          </IonText>
+          <div className="form-group">
+            <div className="input-wrapper">
+              <IonItem>
+                <IonLabel position="floating">Email</IonLabel>
+                <IonInput inputmode="email" autocomplete="email" value={email} onIonChange={e => setEmail(e.detail.value ?? '')} />
+              </IonItem>
+            </div>
+            <div className="input-wrapper">
+              <IonItem>
+                <IonLabel position="floating">Password</IonLabel>
+                <IonInput type="password" autocomplete="current-password" value={password} onIonChange={e => setPassword(e.detail.value ?? '')} />
+              </IonItem>
+            </div>
+            <div className="row-between">
+              <div className="remember-item">
+                <input 
+                  type="checkbox" 
+                  id="remember-me" 
+                  checked={rememberMe} 
+                  onChange={e => setRememberMe(e.target.checked)}
+                  className="custom-checkbox"
+                />
+                <label htmlFor="remember-me" className="remember-label">Remember me</label>
+              </div>
+              <button className="link-btn" onClick={handleForgotPassword}>Forgot password?</button>
+            </div>
+          </div>
+
+          <IonButton expand="block" size="large" onClick={handleLogin}>
+            Log in
+          </IonButton>
+
+          <div className="below-cta">
+            <span>New here?</span>
+            <button className="link-btn" onClick={() => window.location.href='/signup'}>Create an account</button>
+          </div>
         </div>
       </IonContent>
     </IonPage>
