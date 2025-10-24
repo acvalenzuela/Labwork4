@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
-import './Login.css'; // Optional: for custom CSS
+import './Login.css';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
